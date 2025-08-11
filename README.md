@@ -2,7 +2,7 @@
 
 This is a powerful and comprehensive Python-based algorithmic trading system designed for automated financial market analysis and trade execution. It integrates a rule-based trading strategy with machine learning predictions and automates real-time notifications via Telegram and data logging to Google Sheets. The system is built for robustness, providing detailed performance metrics and error handling.
 
-## You can follow my bot [@@Truealgosbot](https://t.me/@Truealgosbot).
+## You can follow my bot [@Truealgosbot](https://t.me/@Truealgosbot).
 
 -----
 
