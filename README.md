@@ -3,7 +3,7 @@
 This is a powerful and comprehensive Python-based algorithmic trading system designed for automated financial market analysis and trade execution. It integrates a rule-based trading strategy with machine learning predictions and automates real-time notifications via Telegram and data logging to Google Sheets. The system is built for robustness, providing detailed performance metrics and error handling.
 
 ## You can follow my bot 
-<img width="1185" height="1177" alt="image" src="https://github.com/user-attachments/assets/0208c3a9-010b-40ae-ba79-a35f25aa0748" />
+<img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/0208c3a9-010b-40ae-ba79-a35f25aa0748" />
 
 
 -----
