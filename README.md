@@ -1,236 +1,195 @@
-# Algo Trading System with ML & Automation
+# 🚀 Algo Trading System with ML & Automation
 
-A comprehensive Python-based algorithmic trading system that implements RSI + Moving Average crossover strategy with machine learning predictions and automated Google Sheets logging.
+This is a powerful and comprehensive Python-based algorithmic trading system designed for automated financial market analysis and trade execution. It integrates a rule-based trading strategy with machine learning predictions and automates real-time notifications via Telegram and data logging to Google Sheets. The system is built for robustness, providing detailed performance metrics and error handling.
 
-## 🚀 Features
+-----
 
-### Core Trading Features
-- **Data Ingestion**: Fetches real-time data from Yahoo Finance for NIFTY 50 stocks
-- **Trading Strategy**: RSI < 30 + 20-DMA crossing above 50-DMA for buy signals
-- **Backtesting**: 6-month historical backtesting with comprehensive metrics
-- **ML Predictions**: Decision Tree, Random Forest, and Logistic Regression models
-- **Automated Execution**: Scheduled analysis during market hours
+## ✨ Key Features
 
-### Integration Features
-- **Google Sheets Logging**: Automated logging of trades, P&L, and analytics
-- **Telegram Alerts**: Real-time notifications for signals and system status
-- **Performance Analytics**: Win rates, Sharpe ratio, maximum drawdown
-- **Error Handling**: Comprehensive logging and error notifications
+### Core Trading Functionality
 
-## 📋 Requirements
+  - **📊 Data Ingestion**: Fetches historical and real-time OHLCV (Open, High, Low, Close, Volume) data from Yahoo Finance for a customizable list of stocks.
+  - **🧠 Trading Strategy**: Implements a dual-indicator strategy combining RSI (Relative Strength Index) and moving average crossovers (20-DMA vs. 50-DMA) to generate precise buy and sell signals.
+  - **📈 Backtesting Engine**: A robust backtesting module simulates the strategy over historical data (6 months by default) to provide a comprehensive analysis of performance metrics.
+  - **🤖 Machine Learning Predictions**: Integrates three distinct ML models—Random Forest, Decision Tree, and Logistic Regression—to predict next-day stock movements, automatically selecting the best-performing model for each stock.
+  - **⏰ Automated Execution**: An integrated scheduler allows for automated analysis during market hours and model retraining on weekends, ensuring the system remains current.
 
-### Python Dependencies
-\`\`\`bash
-pip install -r requirements.txt
-\`\`\`
+### Seamless Integrations & Analytics
 
-### External Services Setup
+  - **📋 Google Sheets Logging**: Automatically logs all trading activities, including individual trades, performance summaries by stock, win/loss ratios, and ML predictions, to a Google Sheet.
+  - **🔔 Telegram Alerts**: Provides real-time notifications directly to your Telegram chat for a wide range of events:
+      - **🚨 Trading Alerts**: Instant buy/sell signals with key metrics like price and RSI.
+      - **📊 Backtest Summaries**: Post-backtest reports on total trades, win rates, and average returns.
+      - **🤖 ML Predictions**: Alerts for new model predictions with confidence levels.
+      - **⚠️ Error Alerts**: Critical notifications for system failures and errors.
+  - **📈 Performance Analytics**: The system calculates and logs key performance indicators, including total return percentage, win rate, Sharpe ratio, and maximum drawdown.
+  - **✅ Robust Error Handling**: Comprehensive logging and a dedicated Telegram error alert system ensure you are immediately aware of any issues.
 
-#### 1. Google Sheets Integration
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
-3. Enable Google Sheets API and Google Drive API
-4. Create a Service Account and download the JSON credentials
-5. Save the credentials file as `credentials.json` in the project root
-6. Share your Google Sheet with the service account email
-
-#### 2. Telegram Bot Setup (Optional)
-1. Message [@BotFather](https://t.me/botfather) on Telegram
-2. Create a new bot with `/newbot` command
-3. Get your bot token
-4. Get your chat ID by messaging [@userinfobot](https://t.me/userinfobot)
-5. Add these to your `.env` file
+-----
 
 ## 🛠️ Installation & Setup
 
-### 1. Clone and Setup
-\`\`\`bash
+### 1\. Clone the Repository
+
+```bash
 git clone <repository-url>
 cd algo-trading-system
+```
+
+### 2\. Install Dependencies
+
+Install all the required Python libraries using pip:
+
+```bash
 pip install -r requirements.txt
-\`\`\`
+```
 
-### 2. Configuration
-1. Copy `.env.example` to `.env`
-2. Fill in your configuration values:
-   \`\`\`bash
-   # Telegram Configuration
-   TELEGRAM_BOT_TOKEN=your_bot_token_here
-   TELEGRAM_CHAT_ID=your_chat_id_here
-   
-   # Google Sheets
-   GOOGLE_CREDENTIALS_FILE=credentials.json
-   SPREADSHEET_NAME=Algo Trading Log
-   
-   # Trading Parameters
-   INITIAL_CAPITAL=100000
-   \`\`\`
+### 3\. Configure External Services
 
-3. Place your Google service account credentials as `credentials.json`
+The system relies on external services for logging and alerting. Follow the steps in the `.env.example` file to set up your configurations.
 
-### 3. Project Structure
-\`\`\`
+#### Google Sheets
+
+  - Create a project in the [Google Cloud Console](https://console.cloud.google.com/).
+  - Enable the Google Sheets API and Google Drive API.
+  - Create a Service Account, download the JSON credentials, and save the file as `credentials.json` in the project root.
+  - Share your Google Sheet with the service account email.
+
+#### Telegram Bot
+
+  - Create a new bot with [@BotFather](https://t.me/botfather) to get your `TELEGRAM_BOT_TOKEN`.
+  - Get your `TELEGRAM_CHAT_ID` by messaging [@userinfobot](https://t.me/userinfobot).
+
+### 4\. Configuration File
+
+Copy the `.env.example` file and rename it to `.env`. Fill in your specific configuration values:
+
+```bash
+# Telegram Configuration (Get from @BotFather)
+TELEGRAM_BOT_TOKEN=your_bot_token_here
+TELEGRAM_CHAT_ID=your_chat_id_1,your_chat_id_2
+
+# Google Sheets Configuration
+SHEETS_WEBHOOK_URL=https://your-google-apps-script-webhook-url
+SHEETS_WEBHOOK_SECRET=your_webhook_secret
+
+# Trading Configuration
+INITIAL_CAPITAL=100000
+COMMISSION_RATE=0.001
+POSITION_SIZE=0.1
+
+# System Configuration
+LOG_LEVEL=INFO
+
+# Stock Selection (Optional - uses default NIFTY 50 stocks if not specified)
+# STOCK_SYMBOLS=RELIANCE.NS,TCS.NS,HDFCBANK.NS,INFY.NS,HINDUNILVR.NS
+```
+
+-----
+
+## 📂 Project Structure
+
+```
 algo-trading-system/
-├── data_fetcher.py          # Yahoo Finance API integration
-├── indicators.py            # Technical indicators (RSI, SMA, MACD)
-├── strategy.py              # Trading strategy implementation
-├── backtester.py            # Backtesting engine
-├── ml_model.py              # Machine learning models
-├── gsheet_logger.py         # Google Sheets integration
-├── telegram_alerts.py       # Telegram notifications
-├── main.py                  # Main system orchestrator
-├── scheduler.py             # Automated scheduling
-├── utils.py                 # Utility functions
-├── requirements.txt         # Python dependencies
-├── .env                     # Configuration file
-├── README.md               # This file
-├── credentials.json        # Google service account credentials
-├── logs/                   # System logs
-└── models/                 # Saved ML models
-\`\`\`
+├── data_fetcher.py          # Fetches stock data from Yahoo Finance
+├── indicators.py            # Calculates technical indicators like RSI, SMA, MACD
+├── strategy.py              # Implements the trading strategy and signal generation
+├── backtester.py            # Backtesting engine for historical simulations
+├── ml_model.py              # Machine learning models for price prediction
+├── gsheet_webhook.py        # Webhook-based Google Sheets logging
+├── gsheet_logger.py         # Google Sheets logging via API or webhook
+├── telegram_alerts.py       # Manages sending notifications via Telegram
+├── main.py                  # Main system orchestrator for a complete analysis cycle
+├── scheduler.py             # Handles automated scheduling of jobs
+├── utils.py                 # Utility functions for logging and helpers
+├── requirements.txt         # List of Python dependencies
+├── .env.example             # Template for configuration file
+├── README.md                # Project documentation
+├── logs/                    # Directory for system logs
+└── models/                  # Directory for saved ML models
+```
+
+-----
 
 ## 🚀 Usage
 
 ### Manual Execution
-Run a complete analysis cycle:
-\`\`\`bash
+
+Run a complete analysis cycle manually:
+
+```bash
 python main.py
-\`\`\`
+```
 
 ### Automated Scheduling
-Start the automated scheduler:
-\`\`\`bash
+
+Start the automated scheduler to run the system at predefined times:
+
+```bash
 python scheduler.py
-\`\`\`
+```
 
-The scheduler runs analysis at:
-- **9:20 AM**: Market opening analysis
-- **12:00 PM**: Mid-day analysis  
-- **3:25 PM**: End-of-day analysis
-- **Saturday 10:00 AM**: ML model retraining
+The scheduler is configured to run a full analysis on market days at **9:20 AM**, **12:00 PM**, and **3:25 PM**, with ML model retraining scheduled for **Saturday at 10:00 AM**.
 
-### Individual Components
-Test individual components:
-\`\`\`bash
-# Test data fetching
-python data_fetcher.py
-
-# Test strategy signals
-python strategy.py
-
-# Test backtesting
-python backtester.py
-
-# Test ML models
-python ml_model.py
-
-# Test Google Sheets logging
-python gsheet_logger.py
-
-# Test Telegram alerts
-python telegram_alerts.py
-\`\`\`
-
-## 📊 Output & Results
-
-### Google Sheets Tabs
-The system creates the following sheets:
-1. **trade_log**: Individual trade records
-2. **summary**: Performance summary by stock
-3. **win_ratio**: Win/loss ratios
-4. **daily_performance**: Daily portfolio metrics
-5. **ml_predictions**: ML model predictions
-
-### Console Output
-\`\`\`
-🚀 Starting Algo Trading System...
-
-📊 MARKET DATA:
-  RELIANCE.NS: Rs.2,485.50 (+1.25%)
-  TCS.NS: Rs.3,245.75 (-0.85%)
-  HDFCBANK.NS: Rs.1,675.25 (+0.45%)
-
-🎯 TRADING SIGNALS:
-  RELIANCE.NS: BUY (Strength: 0.85, RSI: 28.5)
-  TCS.NS: HOLD (Strength: 0.45, RSI: 55.2)
-  HDFCBANK.NS: SELL (Strength: 0.75, RSI: 72.1)
-
-📈 BACKTEST RESULTS:
-  Total Trades: 15
-  Win Rate: 66.7%
-  Avg Return: 2.45%
-  Best Performer: RELIANCE.NS
-
-🤖 ML PREDICTIONS:
-  RELIANCE.NS: UP (Confidence: 75.2%, Accuracy: 68.5%)
-  TCS.NS: DOWN (Confidence: 82.1%, Accuracy: 71.2%)
-  HDFCBANK.NS: UP (Confidence: 69.8%, Accuracy: 65.4%)
-\`\`\`
-
-### Telegram Notifications
-- 🚨 **Trading Alerts**: Buy/sell signals with RSI and price
-- 📊 **Backtest Summaries**: Performance metrics
-- 🤖 **ML Predictions**: Model predictions with confidence
-- ⚠️ **Error Alerts**: System errors and warnings
-- 📅 **Daily Summaries**: End-of-day performance
+-----
 
 ## 🧠 Trading Strategy
 
+The system's core trading logic is built on a robust combination of technical indicators to identify potential market opportunities.
+
 ### Buy Signal Conditions
-1. **RSI < 30** (Oversold condition)
-2. **20-DMA crosses above 50-DMA** (Bullish momentum)
-3. **Signal strength > 0.6** (Confidence threshold)
+
+A **BUY** signal is generated when:
+
+  - The **RSI is below 30** (indicating an oversold condition).
+  - The **20-day Simple Moving Average (SMA) crosses above the 50-day SMA** (confirming bullish momentum).
+  - The combined signal strength exceeds a configurable confidence threshold.
 
 ### Sell Signal Conditions
-1. **RSI > 70** (Overbought condition) OR
-2. **20-DMA crosses below 50-DMA** (Bearish momentum)
+
+A **SELL** signal is generated when:
+
+  - The **RSI is above 70** (indicating an overbought condition).
+  - **OR** the **20-day SMA crosses below the 50-day SMA** (confirming bearish momentum).
 
 ### Risk Management
-- **Position Size**: 10% of capital per trade
-- **Commission**: 0.1% per trade
-- **Stop Loss**: Implemented via technical indicators
-- **Maximum Drawdown Monitoring**: Real-time tracking
+
+  - **Position Size**: Trades are executed with a fixed position size of 10% of the capital per trade.
+  - **Commissions**: A commission rate of 0.1% is applied to each trade.
+
+-----
 
 ## 🤖 Machine Learning Models
 
+The ML prediction module enhances the system by forecasting next-day stock movements.
+
 ### Model Types
-1. **Random Forest**: Best overall performance
-2. **Decision Tree**: Interpretable rules
-3. **Logistic Regression**: Linear relationships
+
+The system automatically trains and evaluates multiple models to find the best fit for each stock:
+
+  - **Random Forest Classifier**: An ensemble model known for its high accuracy.
+  - **Decision Tree Classifier**: Provides interpretable rules and insights.
+  - **Logistic Regression**: A linear model for identifying key relationships.
 
 ### Features Used
-- RSI, MACD, Bollinger Bands
-- Moving averages (20, 50 period)
-- Volume indicators
-- Price momentum
-- Volatility measures
 
-### Model Selection
-- Automatic selection of best performing model per stock
-- Cross-validation for robust evaluation
-- Model retraining every weekend
+Models are trained using a rich set of features derived from:
+
+  - RSI, MACD, and Bollinger Bands.
+  - Moving averages (20 and 50 period).
+  - Volume indicators and volatility measures.
+  - Price and volume-based momentum indicators.
+
+-----
 
 ## 📈 Performance Metrics
 
+The backtester provides a comprehensive overview of the strategy's performance through key metrics:
+
 ### Trading Metrics
-- **Total Return %**: Overall portfolio performance
-- **Win Rate**: Percentage of profitable trades
-- **Profit Factor**: Gross profit / Gross loss
-- **Sharpe Ratio**: Risk-adjusted returns
-- **Maximum Drawdown**: Largest peak-to-trough decline
 
-### ML Metrics
-- **Accuracy**: Correct predictions / Total predictions
-- **Precision & Recall**: Classification performance
-- **Cross-validation Score**: Model robustness
-- **Feature Importance**: Most predictive indicators
-
-## 🔧 Customization
-
-### Adding New Stocks
-Edit the stock list in `data_fetcher.py`:
-```python
-self.nifty_50_stocks = [
-    'RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS',
-    'YOUR_STOCK.NS'  # Add your stock here
-]
+  - **Total Return %**: The overall profit or loss percentage.
+  - **Win Rate**: The percentage of profitable trades.
+  - **Profit Factor**: The ratio of gross profit to gross loss.
+  - **Sharpe Ratio**: Measures risk-adjusted returns.
+  - **Maximum Drawdown**: The largest drop from a peak to a trough in the portfolio value.
